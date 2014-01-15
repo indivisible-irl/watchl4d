@@ -11,24 +11,27 @@ CHANNEL_NAMES = [
 'l4dstreamlined',
 'prodigysim',
 'estoopi',
-'ball3hi',
 'kissmeplox',
-'sidewaysbox',
-'canadaroxgh',
+'zkagaming',
+'ball3hi',
 'sirplease',
 'sirpleasesd',
+'sidewaysbox',
+'canadaroxgh',
 'n1njaaa',
 'haxormode',
+'dectheone',
+'kingkillatoy',
 'jacob404',
 'xsilverxi']
 
 @require_GET
-def main(request):
-    return render(request, 'main.html')
+def watchl4d(request):
+    return render(request, 'watchl4d.html')
 
 @require_GET
 def cup(request):
-    return render(request, 'cup.html')
+    return render(request, 'main.html', {'user': None})
 
 @require_GET
 def live(request):

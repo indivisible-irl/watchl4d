@@ -1,0 +1,77 @@
+<div class="yourteam">
+    <% if (model.get('team')) { %>
+        <h3>Edit your team here.</h3>
+    <% } else { %>
+        <h3>You don't have a team yet! Create one here.</h3>
+    <% } %>
+    <br />
+    
+    <form id="edit_team">
+        <label for="team_name">Team Name</label>
+        <input 
+            id="team_name" 
+            type="text" 
+            name="team_name" value="<% if (model.get('team')) { %><%= model.get('team').name %><% } %>"/>
+        <span class="required">*</span>
+        <br />
+        <label for="team_active">Active / Ready</label>
+        <input 
+            id="team_active" 
+            type="checkbox" 
+            name="team_active"
+            <% if (model.get('team') && model.get('team').active) { %>checked<% } %>>
+        <br />
+
+        <h3>Players</h3>
+        <table class="colorful">
+            <tr>
+                <th></th>
+                <th></th>
+                <th>Name<span class="required">*</span></th>
+                <th>Steam ID<span class="required">*</span></th>
+                <th>Steam Profile</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><span class="hint">STEAM_X:X:XXXXXX</span></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a class="small" href="http://www.steamidfinder.com" target="_blank">steamidfinder.com</a></td>
+                <td></td>
+            </tr>
+            <% for (var i = 0; i < 6; i++) { %>
+                <tr>
+                    <td><%= i + 1 %></td>
+                    <% if (model.get('team') && model.get('team').members && model.get('team').members.length > i) { %>
+                        <td><input type="hidden" name="id<%= i %>" id="id<%= i %>" value="<%= model.get('team').members[i].id %>"/></td>
+                        <td><input type="text" name="name<%= i %>" id="name<%= i %>"  value="<%= model.get('team').members[i].name %>"/></td>
+                        <td><input type="text" name="steam_id<%= i %>" id="steam_id<%= i %>" value="<%= model.get('team').members[i].steam_id %>"/></td>
+                        <td><input type="text" name="steam_profile<%= i %>" id="steam_profile<%= i %>" value="<%= model.get('team').members[i].steam_profile %>"/></td>
+                    <% } else { %>
+                        <td><input type="hidden" name="id<%= i %>" id="id<%= i %>" value=""/></td>
+                        <td><input type="text" name="name<%= i %>" id="name<%= i %>"  value=""/></td>
+                        <td><input type="text" name="steam_id<%= i %>" id="steam_id<%= i %>" value=""/></td>
+                        <td><input type="text" name="steam_profile<%= i %>" id="steam_profile<%= i %>" value=""/></td>
+                    <% } %>
+                </tr>
+            <% } %>
+        </table>
+        <input type="submit" value="Submit"/>
+        <input type="button" id="cancel" value="Cancel"/>
+    </form>
+
+    <img class="spinner" src="{{STATIC_URL}}img/ajax-loader-small.gif" />
+    <div class="error"></div>
+    
+    <% if (model.get('team')) { %>
+        <form id="delete_team">
+            <input type="submit" value="Delete Team"/>
+        </form>
+    <% } %>
+</div>

@@ -6,11 +6,6 @@ Site = {
     Routers: {},
     Controls: {},
     Tools: {},
-    
-    Constants: {
-        TYPE_LISTENER: 0,
-        TYPE_BAND: 1
-    },
 
     Router: null,
     Main: null,

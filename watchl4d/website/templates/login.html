@@ -1,0 +1,23 @@
+<div class="login dialog-content-inner">
+    <form>
+        <table>
+            <tr>
+                <td><label for="username">Username</label></td>
+                <td><input type="text" id="username" placeholder="Username" maxlength="50" autofocus/></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password</label></td>
+                <td><input type="password" id="password" placeholder="Password" maxlength="128"/></td>
+            </tr>
+        </table>
+        <input type="submit" value="Login" />
+    </form>
+
+    <div class="error"></div>
+    <br />
+    <img class="spinner" src="{{STATIC_URL}}img/ajax-loader-small.gif"/>
+    Not a member yet?
+    <a id="signup" href="#register">Sign up</a>
+    now!
+</div>
+

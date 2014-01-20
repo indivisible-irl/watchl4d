@@ -1,0 +1,9 @@
+<% if (model.isNew()) { %>
+    <button id="login">Login</button>
+    <a id="register" href="#">Sign Up!<a/>
+<% } else { %>
+    logged in as 
+    <%= model.get('name') %>
+    <a id="yourteam" href="#">Edit Your Team<a/>
+    <a id="logout" href="#">Log out<a/>
+<% } %>

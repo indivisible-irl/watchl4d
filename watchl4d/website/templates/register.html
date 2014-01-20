@@ -1,0 +1,62 @@
+<div class="register dialog-content-inner">
+    <h3 class="alert">
+        Only the Captain of the team needs an account!!!
+        <br />
+        You'll be able to populate your team once you log in.
+    </h3>
+    <form>
+        <table>
+            <tr>
+                <td><label for="name">Alias / Name</label></td>
+                <td>
+                    <input id="name" name="name" type="text" value=""/>
+                    <span class="required">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="steam_id">Steam ID</label></td>
+                <td>
+                    <input id="steam_id" name="steam_id" type="text" value=""/>
+                    <span class="required">*</span>
+                    <span class="hint">STEAM_X:X:XXXXXX</span>
+                    <span class="bullet">-</span>
+                    <a class="small" href="http://www.steamidfinder.com" target="_blank">steamidfinder.com</a>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="steam_profile">Steam Profile</label></td>
+                <td><input id="steam_profile" name="steam_profile" type="text" value=""/></td>
+            </tr>
+            <tr>
+                <td><label for="username">Desired Username</label></td>
+                <td>
+                    <input id="username" name="username" type="text" value=""/>
+                    <span class="required">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="password">Password</label></td>
+                <td>
+                    <input id="password" name="password" type="password"/>
+                    <span class="required">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="confirm_password">Confirm Password</label></td>
+                <td>
+                    <input id="confirm_password" type="password"/>
+                    <span class="required">*</span>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Register!" />
+    </form>
+
+    <div class="error"></div>
+    <br />
+    <img class="spinner" src="{{STATIC_URL}}img/ajax-loader-small.gif"/>
+
+    Already a member? Login
+    <a id="login" href="#">here.</a>
+
+</div>

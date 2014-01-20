@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url, include
 
-urlpatterns = patterns('',
-    url(r'^$', 'watchl4d.views.watchl4d'),
-    url(r'^live/$', 'watchl4d.views.live'),
-    url(r'^cup/$', 'watchl4d.views.cup')
+urlpatterns = patterns('watchl4d.website.views',
+    url(r'^$', 'watchl4d'),
+    url(r'^live/$', 'live'),
+    url(r'^cup/$', 'cup')
 )

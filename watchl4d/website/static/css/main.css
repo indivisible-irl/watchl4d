@@ -1,0 +1,266 @@
+@font-face {
+    font-family: Futurot;
+    src: url('../fonts/gasmask.ttf');
+}
+
+body {
+    background-color: #202020;
+    color: white;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 12px;
+    text-shadow: 1px 1px black;
+    width: 900px;
+    margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5 {
+    width: 100%;
+    text-align: center;
+    margin: 8px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    text-shadow: none;
+}
+a:hover {
+    color: red;
+}
+a:active {
+    color: red;
+}
+a:visited {
+    color: white;
+}
+
+p {
+    margin: 15px 0px;
+}
+
+.rot {
+    font-family: Futurot;
+    font-size: 3.2em;
+}
+
+.invalid {
+    background-color: rgb(228, 108, 108);
+    border-color: red;
+    color: white;
+}
+
+.required {
+    color: red;
+}
+
+.error {
+    display: none;
+    background-color: rgb(228, 108, 108);
+    border: 1px solid red;
+    padding: 8px;
+    color: white;
+}
+
+.nav-btn {
+    color: white;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    -webkit-transition: -webkit-transform 200ms, color 400ms;
+}
+.nav-btn:hover {
+    color: red;
+    -webkit-transform: scale(1.1);
+}
+.nav-btn:active {
+    color: red;
+}
+
+.left-panel, .right-panel {
+    margin: 8px 4px;
+    text-align: center;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    float: left;
+    height: 95%;
+    overflow: hidden;
+}
+
+.left-panel {
+    width: 270px;
+    /*width: 30%;*/
+    background-color: #101010;
+}
+
+.right-panel {
+    width: 600px;
+    /*width: 67%;*/
+    background-color: #333333;
+}
+
+.stream-panel {
+    position: fixed;
+    top: 25%;
+    right: 0%;
+    display: inline-block;
+    width: 104px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.65);
+    padding: 8px 6px;
+    font-size: 1.5em;
+    cursor: pointer;
+    -webkit-border-top-left-radius: 9px;
+    -webkit-border-bottom-left-radius: 9px;
+    -webkit-transition: -webkit-transform 200ms, color 400ms;
+    z-index: 1001;
+    box-shadow: -1px 1px 5px white;
+}
+.stream-panel:hover {
+    -webkit-transform: scale(1.1);
+}
+
+.auth-panel {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    text-align: center;
+    z-index: 1000;
+}
+
+.auth-panel a {
+    text-decoration: underline;
+}
+
+#rules-panel {
+    text-align: left;
+}
+
+/* SLIDE */
+
+.slide {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    left: 0%;
+    top: 0%;
+    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.7);
+    background-image: '';
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: #333333;
+    overflow-y: scroll;
+    overflow-x: text-wrap;
+}
+
+.slide>:first-child {
+    /*width: 100%;
+    height: 100%;
+    padding: 6px;*/
+    margin: 12px;
+}
+
+/* SPINNER */
+.spinner {
+    display: none;
+}
+
+
+/* DIALOG */
+
+.dialog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(17, 17, 17, 0.4);
+    text-align: center;
+    z-index: 1001;
+}
+
+
+.dialog a {
+    color: #555555;
+    text-decoration: underline;
+}
+
+.dialog em {
+    color: #F0F0F0;
+    font-size: 0.9em;
+    margin: 9px;
+    display: inline-block;
+}
+
+.dialog .dialog-inner {
+
+    position: relative;
+    top: 15%;
+    display: inline-block;
+    transform: scale(0,0);
+    -ms-transform: scale(0,0);
+    -webkit-transform: scale(0,0);
+    /* max-width: 80%; // Don't set this because it messes with sliders inside dialogs */
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+
+    /* dark shadow */
+    /*box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.8);*/
+    /* light shadow */
+    box-shadow: 0px 0px 9px 0px rgba(256, 256, 256, 0.8);
+    
+    background-color: rgba(256, 256, 256, 0.9);
+
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dialog .dialog-inner .dialog-title {
+    padding: 0.6em 1em;
+    color: white;
+    background-color: #202020;
+    font-size: 1.3em;
+    text-shadow: 0px 0px 10px white;
+}
+
+.dialog .dialog-inner .dialog-content {
+
+}
+
+.dialog .dialog-inner .dialog-content .dialog-content-inner {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    background-color:rgba(0, 0, 0, 0.4);
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.dialog .dialog-inner .dialog-title .icon,
+.underpanel .underpanel-title .underpanel-icons {
+    position: absolute;
+    top: 0.3em;
+    right: 0.3em;
+    left: auto; /* required. not sure why */
+}
+
+.dialog .dialog-inner .dialog-title .icon,
+.underpanel .underpanel-title .underpanel-icons .icon {
+    width: 1.7em;
+    height: 1.7em;
+}
+
+/*.dialog .dialog-inner .dialog-title .icon:hover,
+.underpanel .underpanel-title .underpanel-icons .icon:hover {
+    -webkit-transform: none;
+}*/
+
+.dialog .spinner-container {
+    /* spinner is made absolute so we could make
+    background image cover entire dialog body */
+    position: absolute;
+    z-index: 1;
+}

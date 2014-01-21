@@ -131,11 +131,10 @@ Site.Views.LoginDialog = Site.Views.Dialog.extend({
                     'password': password.val()},
              headers: {'X-CSRFToken': cookie('csrftoken')},
              success: function (data, textStatus, jqXHR) {
-                 if (!data.success) {
-                    this.showError(data.message);
-                 }
-                 else {
+                this.showError(data.message);
+                 if (data.success) {
                      Site.User.set(data.data);
+                     // Site.User.set({team: JSON.parse(data.data['team'])});
                      this.close();
                  }
              },
@@ -175,16 +174,16 @@ Site.Views.RegisterDialog = Site.Views.Dialog.extend({
             steam_profile = this.$('#steam_profile'),
             username = this.$('#username'),
             password = this.$('#password'),
-            confirm = this.$('#confirm_password'),
+            confirm = this.$('#confirm_password');
 
         this.hideError();
         this.hideSpinner();
 
-        var msg += name.assertRequired('Name');
+        var msg = name.assertRequired('Name');
         msg += steam_id.assertRequiredSyntaxSteamId();
         msg += username.assertRequired('Username');
         msg += password.assertRequired('Password');
-        msg += password.assertEqual('Password', confirmpassword, 'Confirmation Password');
+        msg += password.assertEqual('Password', confirm, 'Confirmation Password');
 
         if (msg) {
             this.showError(msg);
@@ -205,11 +204,10 @@ Site.Views.RegisterDialog = Site.Views.Dialog.extend({
                     'password': password.val()},
             headers: {'X-CSRFToken': cookie('csrftoken')},
             success : function (data, textStatus, jqXHR) {
-                if (!data.success) {
-                    this.showError(data.message);
-                }
-                else {
+                this.showError(data.message);
+                if (data.success) {
                     Site.User.set(data.data);
+                    // Site.User.set({team: JSON.parse(data.data['team'])});
                     this.close();
                 }
             },
@@ -227,10 +225,19 @@ Site.Views.RegisterDialog = Site.Views.Dialog.extend({
 Site.Views.YourTeamDialog = Site.Views.Dialog.extend({
     title: 'Your Team',
 
-    events: {
-        'submit #edit_team': 'onSubmitEditTeam',
-        'submit #delete_team': 'onSubmitDeleteTeam',
-        'click #cancel': 'onClickCancel'
+    initialize: function (options) {
+        Site.Views.Dialog.prototype.initialize.call(this, options);
+        this.listenTo(Site.User, 'change', this.onUserChange);
+    },
+
+    events: function () {
+        var events = {
+            'submit #edit_team': 'onSubmitEditTeam',
+            'submit #delete_team': 'onSubmitDeleteTeam',
+            'click #cancel': 'onClickCancel'
+        };
+        _.extend(events, Site.Views.Dialog.prototype.events);
+        return events;
     },
 
     render: function () {
@@ -245,7 +252,7 @@ Site.Views.YourTeamDialog = Site.Views.Dialog.extend({
     },
 
     validateTeam: function () {
-        var teamName = this.$('#team_name').val();
+        var teamName = this.$('#team_name');
 
         var msg = teamName.assertRequired('Team Name')
         for (var i = 0; i < 6; i++)
@@ -256,22 +263,30 @@ Site.Views.YourTeamDialog = Site.Views.Dialog.extend({
     },
 
     validateMember: function (index) {
-        var playerName = this.$('#name' + index).val();
-        var playerSteamId = $('#steam_id' + index).val();
+        var playerName = this.$('#name' + index);
+        var playerSteamId = this.$('#steam_id' + index);
     
         if (index == 0)
         {
             var msg = playerName.assertRequired('Player 1\'s name (you)');
-            msg += playerSteamId.assertRequiredSyntaxSteamId('Player 1\'s Steam ID (yours)');
+            msg += playerSteamId.assertRequiredSyntaxSteamId(null, null, 'Player 1\'s Steam ID (yours)');
         }
         else
         {
             var msg = '';
-            if (playerName.trim() != '')
-                msg += playerSteamId.assertRequiredSyntaxSteamId('Player ' + (index + 1) + '\'s Steam ID');
+            if (playerName.val().trim() != '')
+                msg += playerSteamId.assertRequiredSyntaxSteamId(null, null, 'Player ' + (index + 1) + '\'s Steam ID');
         }
     
         return msg;
+    },
+
+    onUserChange: function (e) {
+        this.$('.dialog-content').empty().html(window.JST.yourteam({model: Site.User}));
+
+        // We assume that a re-render is a result of a successful team edit/delete
+        // so we fill in a semi-relevant status message
+        this.showError('Success!');
     },
 
     onClickCancel: function (e) {
@@ -283,6 +298,7 @@ Site.Views.YourTeamDialog = Site.Views.Dialog.extend({
             return false;
         }
 
+        this.hideError();
         this.showSpinner();
         
         var data = {};
@@ -295,8 +311,6 @@ Site.Views.YourTeamDialog = Site.Views.Dialog.extend({
             data['steam_profile' + i] = this.$('#steam_profile' + i).val();
         }
 
-        // this.locked = true;
-        // var view = this;
         $.ajax({
              url: Settings.ROOT_URL + '/team/',
              type: 'POST',
@@ -305,17 +319,16 @@ Site.Views.YourTeamDialog = Site.Views.Dialog.extend({
              context: this,
              headers: {'X-CSRFToken': cookie('csrftoken')},
              success : function (data, textStatus, jqXHR) {
-                this.showError(data.message);
-                view.$('.error').html(data.message);
+                this.showError('Success!');
                 if (data.success) {
                     Site.User.set(data.data);
+                    // Site.User.set({team: JSON.parse(data.data['team'])});
                 }
              },
              error: function (jqXHR, textStatus, errorThrown) {
                 this.showError('Something went wrong. Please try again.');
              },
              complete: function (jqXHR, textStatus) {
-                // view.locked = false;   
                 this.hideSpinner();
              }
          });
@@ -327,17 +340,20 @@ Site.Views.YourTeamDialog = Site.Views.Dialog.extend({
             return false;
         }
 
+        this.hideError();
+        this.showSpinner();
+
         $.ajax({
              url: Settings.ROOT_URL + '/deleteteam/',
              type: 'POST',
              dataType: 'json',
-             data: data,
              context: this,
              headers: {'X-CSRFToken': cookie('csrftoken')},
              success : function (data, textStatus, jqXHR) {
-                this.showError(data.message);
+                this.showError('Success!');
                 if (data.success) {
                     Site.User.set(data.data);
+                    // Site.User.set({team: null});
                 }
              },
              error: function (jqXHR, textStatus, errorThrown) {

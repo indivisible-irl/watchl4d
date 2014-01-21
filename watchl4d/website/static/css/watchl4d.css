@@ -6,10 +6,61 @@ body {
     text-shadow: 1px 1px black;
 }
 
+h1 {
+    text-shadow: 0px 0px 15px red;
+}
+
+strong {
+    color: red;
+    text-shadow: 0px 0px 15px white;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    -webkit-transition: text-shadow 200ms;
+}
+a:hover {
+    text-shadow: 0px 0px 15px red;
+}
+
+.banner {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
 .channel {
     margin: 0 auto;
     width: 1008px;
     opacity: 0;
+}
+
+.sponsors {
+    margin: 10px auto;
+    width: 1008px;
+    text-align: center;
+}
+
+.sponsor {
+    max-width: 20%;
+    font-size: 1.7em;
+    font-weight: bold;
+    display: inline-block;
+    padding: 6px;
+    border-radius: 10px;
+    margin: 0px 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.bg {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.sponsor img {
+    position: relative;
+    top: 50%;
+    width: 100%;
 }
 
 .title {
@@ -53,6 +104,20 @@ body {
     float: left;
 }
 
+.channels {
+    position: fixed;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    top: 45px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #777777;
+    padding: 5px;
+    font-weight: bold;
+    line-height: 1.4;
+    font-size: 0.8em;
+}
+
 .spinner {
     position: absolute;
     top: -25%;
@@ -74,4 +139,5 @@ body {
 
 .spinner img {
     margin: 5px;
+    max-height: 20px;
 }

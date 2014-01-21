@@ -1,4 +1,4 @@
-<div class="yourteam">
+<div class="yourteam dialog-content-inner">
     <% if (model.get('team')) { %>
         <h3>Edit your team here.</h3>
     <% } else { %>
@@ -19,7 +19,7 @@
             id="team_active" 
             type="checkbox" 
             name="team_active"
-            <% if (model.get('team') && model.get('team').active) { %>checked<% } %>>
+            <% if ( !model.get('team') || model.get('team').active) { %>checked<% } %>>
         <br />
 
         <h3>Players</h3>
@@ -48,16 +48,21 @@
             <% for (var i = 0; i < 6; i++) { %>
                 <tr>
                     <td><%= i + 1 %></td>
-                    <% if (model.get('team') && model.get('team').members && model.get('team').members.length > i) { %>
+                    <% if (i == 0) { %>
+                        <td><input type="hidden" name="id<%= i %>" id="id<%= i %>" value="<%= model.get('id') %>"/></td>
+                        <td><input type="text" name="name<%= i %>" id="name<%= i %>"  value="<%= model.get('name') %>"/></td>
+                        <td><input type="text" name="steam_id<%= i %>" id="steam_id<%= i %>" value="<%= model.get('steam_id') %>"/></td>
+                        <td><input type="text" class="steam-profile" name="steam_profile<%= i %>" id="steam_profile<%= i %>" value="<%= model.get('steam_profile') %>"/></td>
+                    <% } else if (model.get('team') && model.get('team').members && model.get('team').members.length > (i - 1)) { %>
                         <td><input type="hidden" name="id<%= i %>" id="id<%= i %>" value="<%= model.get('team').members[i].id %>"/></td>
                         <td><input type="text" name="name<%= i %>" id="name<%= i %>"  value="<%= model.get('team').members[i].name %>"/></td>
                         <td><input type="text" name="steam_id<%= i %>" id="steam_id<%= i %>" value="<%= model.get('team').members[i].steam_id %>"/></td>
-                        <td><input type="text" name="steam_profile<%= i %>" id="steam_profile<%= i %>" value="<%= model.get('team').members[i].steam_profile %>"/></td>
+                        <td><input type="text" class="steam-profile" name="steam_profile<%= i %>" id="steam_profile<%= i %>" value="<%= model.get('team').members[i].steam_profile %>"/></td>
                     <% } else { %>
                         <td><input type="hidden" name="id<%= i %>" id="id<%= i %>" value=""/></td>
                         <td><input type="text" name="name<%= i %>" id="name<%= i %>"  value=""/></td>
                         <td><input type="text" name="steam_id<%= i %>" id="steam_id<%= i %>" value=""/></td>
-                        <td><input type="text" name="steam_profile<%= i %>" id="steam_profile<%= i %>" value=""/></td>
+                        <td><input type="text" class="steam-profile" name="steam_profile<%= i %>" id="steam_profile<%= i %>" value=""/></td>
                     <% } %>
                 </tr>
             <% } %>
@@ -67,7 +72,9 @@
     </form>
 
     <img class="spinner" src="{{STATIC_URL}}img/ajax-loader-small.gif" />
+    <br />
     <div class="error"></div>
+    <br />
     
     <% if (model.get('team')) { %>
         <form id="delete_team">

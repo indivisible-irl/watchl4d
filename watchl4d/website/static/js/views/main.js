@@ -8,7 +8,6 @@ Site.Views.Main = Backbone.View.extend({
         this.authPanel = new Site.Views.AuthPanel({el: this.$('.auth-panel')});
 
         this.$('#home-panel').html(JST.home);
-        this.$('#teams-panel').html(JST.teams);
         this.$('#rules-panel').html(JST.rules);
         this.$('#resources-panel').html(JST.resources);
 
@@ -20,6 +19,8 @@ Site.Views.Main = Backbone.View.extend({
                 this.$('#resources-panel'),
             ]
         });
+
+        this.listenTo(Site.User, 'change', this.onUserChange);
     },
 
     render: function () {

@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import hashlib
+import datetime
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_DIR = BASE_DIR + '/watchl4d'
 WEBSITE_DIR = PROJECT_DIR + '/website'
@@ -33,6 +35,10 @@ else:
     ROOT_URL = '/'
     STATIC_URL = '/static/' #TODO
 
+STATIC_VERSION = os.environ.get(
+    'WATCHL4D_STATIC_VERSION', 
+    hashlib.md5(str(datetime.datetime.now())).hexdigest())
+
 TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
@@ -44,6 +50,7 @@ BACKBONE_TEMPLATE_URL = '/watchl4d/static/js/templates.js'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.debug',
     'django.core.context_processors.i18n',
     'django.core.context_processors.media',
@@ -53,14 +60,15 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'watchl4d.context_processors.conf',
     'watchl4d.context_processors.session',
     'watchl4d.context_processors.signups_open',
+    'watchl4d.context_processors.channel_names'
 )
 
 INSTALLED_APPS = (
-    # 'django.contrib.admin',
-    # 'django.contrib.auth',
-    # 'django.contrib.contenttypes',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
     'django.contrib.sessions',
-    # 'django.contrib.messages',
+    'django.contrib.messages',
     # 'django.contrib.staticfiles',
     'watchl4d.website'
 )
@@ -105,6 +113,28 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'handlers': {
+        'mongo': {
+            'level': 'INFO',
+            'class': 'watchl4d.log.MongoHandler',
+            'db': 'watchl4d',
+            'collection': 'log'
+        }
+    },
+    'loggers': {
+        # no module is specified so that it picks up any module 
+        # log name under the base blacklisted folder
+        '': { 
+            'handlers': ['mongo'],
+            'level': 'INFO',
+            'propogate': True
+        }
+    }
+}
 
 
 

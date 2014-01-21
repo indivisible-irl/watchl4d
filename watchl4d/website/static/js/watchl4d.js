@@ -30,7 +30,7 @@ function pingChannels () {
 */
 function setLiveChannel (data) {
     var oldc = LIVE_CHANNEL ? LIVE_CHANNEL['channel_name'] : null,
-        newc = data['channel_name'];
+        newc = data ? data['channel_name'] : null;
 
     if (oldc && (oldc == newc)) {
         // Channel is already live: no-op
@@ -65,5 +65,6 @@ function showSpinner () {
 
 function hideSpinner () {
     $('.spinner').animate({top: '-25%', opacity: 0}, 300, 'swing');
+    $('.tryagain').animate({top: '-25%', opacity: 0}, 300, 'swing');
     $('.channel').animate({opacity: 100}, 300, 'swing');
 }

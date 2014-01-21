@@ -27,7 +27,8 @@ class Team(Model):
     def serialize_related(self):
         serialized = self.serialize()
         serialized['members'] = [member.serialize() for member in self.members]
-
+        return serialized
+        
 class TeamMember(Model):
     class Meta: 
         db_table = 'team_member'
@@ -74,7 +75,7 @@ class User(Model):
     def serialize_related(self):
         serialized = self.serialize()
         serialized['team'] = self.team.serialize() if self.team else None
-
+        return serialized
 
 class Map(Model):
     class Meta: 

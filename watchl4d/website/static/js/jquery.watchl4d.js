@@ -15,7 +15,7 @@
     if (!reg_ex.test(val)) {
         indicator.indicatorShow();
         this.addClass('invalid');
-        return desc + "is invalid.<br />";
+        return desc + " is invalid.<br />";
     }
     return "";
 }

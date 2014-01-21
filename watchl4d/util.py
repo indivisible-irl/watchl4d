@@ -1,6 +1,7 @@
 import os
 import copy
 import datetime
+import re
 
 from django.conf import settings
 from django.shortcuts import render
@@ -56,3 +57,26 @@ class RequestObject(Object):
 def signups_open():
     ''' Tournament starts Feb 3, 2014 '''
     return datetime.datetime.now() < datetime.datetime(2014, 2, 3)
+
+def assert_required(val, desc):
+    return '' if val.strip() else '{0} is required.<br />'.format(desc)
+
+def assert_min_length(val, length, desc):
+    return '' if len(val) >= length else \
+        '{0} must be at least {1} characters.<br />'.format(desc, length)
+
+def assert_syntax_steam_id(val, desc):
+    matched = re.match('^STEAM_[0-9]:[0-9]:[0-9]+$', val)
+    return '' if matched else '{0} is invalid.<br />'.format(desc)
+
+def assert_equal(val1, desc1, val2, desc2):
+    return '' if val1 == val2 else \
+        '{0} and {1} must match. <br/>'.format(desc1, desc2)
+
+def assert_required_min_length(val, length, desc):
+    msg = assert_required(val, desc)
+    return msg if msg else assert_min_length(val, length, desc)
+
+def assert_required_syntax_steam_id(val, desc):
+    msg = assert_required(val, desc)
+    return msg if msg else assert_syntax_steam_id(val, desc)

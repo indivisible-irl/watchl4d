@@ -21,6 +21,7 @@ CHANNEL_NAMES = [
 'zkagaming',
 'ball3hi',
 'icy_inferno',
+'alexi21',
 'sirplease',
 'sirpleasesd',
 'sidewaysbox',

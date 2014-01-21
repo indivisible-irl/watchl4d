@@ -38,6 +38,10 @@ class TeamMember(Model):
     steam_profile = CharField(max_length=200, blank=True)
     team = ForeignKey(Team, related_name='members', null=True, blank=True)
     
+    @property
+    def full_steam_profile(self):
+        return self.steam_profile if self.steam_profile.startswith('http://') else 'http://{0}'.format(self.steam_profile)
+
     def __unicode__(self):
         return self.name
 
@@ -59,6 +63,10 @@ class User(Model):
     steam_id = CharField(max_length=25, unique=False)
     steam_profile = CharField(max_length=200, blank=True)
     team = OneToOneField(Team, related_name='captain', null=True, blank=True, on_delete=SET_NULL)
+
+    @property
+    def full_steam_profile(self):
+        return self.steam_profile if self.steam_profile.startswith('http://') else 'http://{0}'.format(self.steam_profile)
     
     def __unicode__(self):
         return self.name

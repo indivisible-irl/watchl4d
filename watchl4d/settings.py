@@ -32,8 +32,8 @@ if DEV:
     STATIC_URL = '{0}static/'.format(ROOT_URL)
 else:
     SERVER_URL = 'http://www.watchl4d.com/'
-    ROOT_URL = '/'
-    STATIC_URL = '/static/' #TODO
+    ROOT_URL = ''
+    STATIC_URL = 'http://watchl4d.s3-website-us-east-1.amazonaws.com/'
 
 STATIC_VERSION = os.environ.get(
     'WATCHL4D_STATIC_VERSION', 
@@ -46,7 +46,7 @@ ALLOWED_HOSTS = []
 TEMPLATE_DIRS = (WEBSITE_DIR + '/templates',)
 
 BACKBONE_TEMPLATE_FILE = '{0}/static/js/templates.js'.format(WEBSITE_DIR)
-BACKBONE_TEMPLATE_URL = '/watchl4d/static/js/templates.js'
+BACKBONE_TEMPLATE_URL = '{0}js/templates.js'.format(STATIC_URL)
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -126,27 +126,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'handlers': {
-        'mongo': {
-            'level': 'INFO',
-            'class': 'watchl4d.log.MongoHandler',
-            'db': 'watchl4d',
-            'collection': 'log'
-        }
-    },
-    'loggers': {
-        # no module is specified so that it picks up any module 
-        # log name under the base blacklisted folder
-        '': { 
-            'handlers': ['mongo'],
-            'level': 'INFO',
-            'propogate': True
-        }
-    }
-}
 
 
 

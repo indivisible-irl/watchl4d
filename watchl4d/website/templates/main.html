@@ -60,7 +60,7 @@
                                     <div class="col">
                                         <div><strong>{{ team.name }}</strong></div>
                                         {% if team.captain.steam_profile %}
-                                            <a href="http://{{ team.captain.steam_profile }}" target="_blank">
+                                            <a href="{{ team.captain.full_steam_profile }}" target="_blank">
                                                 {{ team.captain.name }}
                                             </a>
                                         {% else %}
@@ -68,7 +68,7 @@
                                         {% endif %}
                                         {% for member in team.members.all %}
                                             {% if member.steam_profile %}
-                                                <a href="http://{{ member.steam_profile }}" target="_blank">
+                                                <a href="{{ member.full_steam_profile }}" target="_blank">
                                                     {{ member.name }}
                                                 </a>
                                             {% else %}
@@ -87,7 +87,7 @@
         <div id="rules-panel" class="slide"></div>
         <div id="resources-panel" class="slide"></div>
     </div>
-    <a class="stream-panel" href="{{ ROOT_URL }}" target="_blank">
+    <a class="stream-panel" href="http://www.watchl4d.com" target="_blank">
         Go To the <strong>Watch L4D</strong> Stream!
     </a>
     <div class="auth-panel"></div>

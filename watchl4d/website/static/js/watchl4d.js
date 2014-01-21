@@ -8,7 +8,7 @@ LIVE_CHANNEL = null;
 
 function pingChannels () {
     $.ajax({
-        url: '/watchl4d/live/', 
+        url: Settings.ROOT_URL + 'live/', 
         type: 'GET',
         dataType: 'json',
         success: function (data, textStatus, jqXHR) {

@@ -20,7 +20,7 @@ def mtail(db, collection, host='localhost', port=27017):
 
     '''
     client = pymongo.MongoClient(host='localhost', port=27017)
-    collection = client['blapp']['log']
+    collection = client['watchl4d']['log']
 
     while True:
         try:
@@ -62,4 +62,4 @@ def format_timestamp(timestamp):
     return dt.strftime('%Y:%m:%d %H:%M:%S.%f')
 
 if __name__ == '__main__':
-    mtail('blapp', 'log')
+    mtail('watchl4d', 'log')

@@ -7,7 +7,9 @@
     <script src="{{ STATIC_URL }}thirdparty/jquery-1.9.1.min.js" type="text/javascript"></script>
     
     <script type="text/javascript">
-        ROOT_URL = '{{ ROOT_URL }}';
+        var Settings = {
+            ROOT_URL: '{{ROOT_URL}}'
+        };
     </script>
 
     <script src="{{ STATIC_URL }}js/watchl4d.js{{ STATIC_VERSION }}" type="text/javascript"></script>

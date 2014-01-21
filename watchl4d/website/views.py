@@ -29,9 +29,13 @@ CHANNEL_NAMES = [
 'n1njaaa',
 'haxormode',
 'dectheone',
+'flybyop',
 'kingkillatoy',
 'jacob404',
-'xsilverxi']
+'xsilverxi',
+'luunsky',
+'ikai',
+'ikaikaikamusume']
 
 @require_GET
 def watchl4d(request):

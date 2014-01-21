@@ -18,7 +18,7 @@ function pingChannels () {
             console.log(textStatus, errorThrown);
         },
         complete: function (jqXHR, textStatus) {
-            setInterval(pingChannels, 10000);
+            setTimeout(pingChannels, 10000);
         }
     });
 }

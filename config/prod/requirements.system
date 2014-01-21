@@ -1,0 +1,10 @@
+git
+python
+python-dev
+python-pip
+apache2
+libapache2-mod-wsgi
+postgresql
+python-psycopg2
+mongodb-server
+memcached

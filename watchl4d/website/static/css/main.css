@@ -5,6 +5,8 @@
 
 body {
     background-color: #202020;
+    background-image: url('../img/bg.jpg');
+    background-size: contain;
     color: white;
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 12px;
@@ -136,8 +138,9 @@ p {
 
 .left-panel {
     width: 270px;
-    /*width: 30%;*/
-    background-color: #101010;
+    padding: 5px 5px 0px 0px;
+    background-color: rgba(17, 17, 17, 0.6);
+    /*background-color: #101010;*/
 }
 
 .right-panel {
@@ -188,7 +191,8 @@ p {
 }
 
 #teams-panel strong,
-#resources-panel strong {
+#resources-panel strong,
+#home-panel strong {
     color: red;
     font-size: 1.1em;
 }
@@ -199,7 +203,7 @@ p {
 }
 
 #resources-panel a {
-    color: orange;
+    color: #202020;
     font-size: 1.1em;
     font-weight: bold;
     text-decoration: underline;

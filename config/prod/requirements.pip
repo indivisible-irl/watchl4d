@@ -1,0 +1,4 @@
+Django==1.6.1
+pymongo==2.6.3
+python-memcached==1.53
+requests==2.2.0

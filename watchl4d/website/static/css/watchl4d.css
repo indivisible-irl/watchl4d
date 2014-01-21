@@ -1,5 +1,7 @@
 body {
     background-color: #202020;
+    background-image: url('../img/bg.jpg');
+    background-size: contain;
     color: white;
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 12px;

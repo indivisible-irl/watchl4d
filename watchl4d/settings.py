@@ -86,16 +86,28 @@ ROOT_URLCONF = 'watchl4d.urls'
 
 WSGI_APPLICATION = 'watchl4d.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'watchl4d',
-        'USER': 'website',
-        'PASSWORD': 'erparnal',
-        'HOST': 'localhost',
-        'PORT': '',
+if DEV:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'watchl4d',
+            'USER': 'website',
+            'PASSWORD': 'erparnal',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'watchl4d',
+            'USER': 'postgres',
+            'PASSWORD': 'erparnal',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 
 CACHES = {
     'default': {

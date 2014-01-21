@@ -20,7 +20,7 @@ CHANNEL_NAMES = [
 'kissmeplox',
 'zkagaming',
 'ball3hi',
-'icy_inferno'
+'icy_inferno',
 'sirplease',
 'sirpleasesd',
 'sidewaysbox',

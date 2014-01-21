@@ -20,6 +20,7 @@ strong {
 a {
     color: white;
     text-decoration: none;
+    transition: text-shadow 200ms;
     -webkit-transition: text-shadow 200ms;
 }
 a:hover {
@@ -51,6 +52,10 @@ a:hover {
     display: inline-block;
     padding: 6px;
     border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    -ms-border-radius: 10px;
     margin: 0px 10px;
     background-color: rgba(0, 0, 0, 0.6);
 }
@@ -94,8 +99,13 @@ a:hover {
     padding: 4px;
     margin: 4px;
     border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
     background-color: black;
     box-shadow: 1px 1px 10px 1px #111111;
+    -webkit-box-shadow: 1px 1px 10px 1px #111111;
 }
 
 .chat-embed {
@@ -109,7 +119,15 @@ a:hover {
 .channels {
     position: fixed;
     border-top-right-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    -o-border-top-right-radius: 5px;
+    -ms-border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    -o-border-bottom-right-radius: 5px;
+    -ms-border-bottom-right-radius: 5px;
     top: 45px;
     left: 0px;
     background-color: rgba(0, 0, 0, 0.1);
@@ -136,6 +154,10 @@ a:hover {
     font-size: 1.25em;
     font-weight: bold;
     border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.5);
 }
 

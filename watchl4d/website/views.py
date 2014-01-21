@@ -17,10 +17,10 @@ from watchl4d.website.models import *
 CHANNEL_NAMES = [
 'l4dstreamlined',
 'prodigysim',
-'estoopi',
 'kissmeplox',
 'zkagaming',
 'ball3hi',
+'icy_inferno'
 'sirplease',
 'sirpleasesd',
 'sidewaysbox',

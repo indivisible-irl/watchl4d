@@ -17,5 +17,5 @@ def signups_open(request):
     return {'signups_open': so()}
 
 def channel_names(request):
-    return {'CHANNEL_NAMES': CHANNEL_NAMES}
+    return {'CHANNEL_NAMES': sorted(CHANNEL_NAMES)}
 

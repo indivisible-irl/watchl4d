@@ -34,7 +34,6 @@ CHANNEL_NAMES = [
 'jacob404',
 'xsilverxi',
 'luunsky',
-'ikai',
 'ikaikaikamusume']
 
 @require_GET

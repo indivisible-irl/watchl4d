@@ -253,6 +253,7 @@ p {
     background-size: cover;
     background-position: center;
     background-color: #333333;
+    background-image: url('../img/bg.jpg');
     overflow-y: scroll;
     overflow-x: text-wrap;
 }

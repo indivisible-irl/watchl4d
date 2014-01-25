@@ -60,7 +60,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'watchl4d.context_processors.conf',
     'watchl4d.context_processors.session',
     'watchl4d.context_processors.signups_open',
-    'watchl4d.context_processors.channel_names'
+    'watchl4d.context_processors.channels'
 )
 
 INSTALLED_APPS = (
@@ -69,7 +69,6 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    # 'django.contrib.staticfiles',
     'watchl4d.website'
 )
 
@@ -115,6 +114,11 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211'
     }
 }
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
+REDIS_PASSWORD = None
 
 LANGUAGE_CODE = 'en-us'
 

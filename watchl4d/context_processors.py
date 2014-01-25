@@ -1,7 +1,7 @@
 from django.conf import settings
 from watchl4d.session import Session
 from watchl4d.util import signups_open as so
-from watchl4d.website.views import CHANNEL_NAMES
+from watchl4d.website.lib import CHANNELS
 
 def conf(request):
     return {'DEV': settings.DEV,
@@ -16,6 +16,6 @@ def session(request):
 def signups_open(request):
     return {'signups_open': so()}
 
-def channel_names(request):
-    return {'CHANNEL_NAMES': sorted(CHANNEL_NAMES)}
+def channels(request):
+    return {'CHANNELS': sorted(CHANNELS, key=lambda x: x['name'])}
 

@@ -15,13 +15,17 @@
     <script src="{{ STATIC_URL }}js/watchl4d.js{{ STATIC_VERSION }}" type="text/javascript"></script>
 </head>
 <body>
-    <h1>Watch L4D <span style="color:red">BETA</span></h1>
+    <div class="header">
+        <div class="dayslater">Watch L4D <span style="color:red;">BETA</span></div>
+    </div>
     <div class="channel">
         <div class="banner">
             <span class="title"></span>
             <span class="provided-by-pretext">Provided by <span>
             <span class="provided-by"></span>
             <span class="channel-name"></span>
+            <span class="icon icon-eye"></span>
+            <span class="viewers"></span>
         </div>
         <div class="banner">
             <div class="video-embed"></div>
@@ -44,6 +48,10 @@
                 <strong>Watch L4D</strong> 
                 2014 Spring ProMod Tournament!
             </a>
+            <a class="sponsor" href="http://www.hitbox.tv" target="_blank">
+                <img class="hitbox-logo" src="{{ STATIC_URL }}img/hitbox_logo.png" />
+                <img src="{{ STATIC_URL }}img/hitbox.png" />
+            </a>
         </div>
     </div>
     <div class="spinner">
@@ -53,10 +61,39 @@
             <img src="{{ STATIC_URL }}img/ajax-loader.gif"/>
         </div>
     </div>
-    <div class="channels">
-        {% for channel_name in CHANNEL_NAMES %}
-            <div><em>{{ channel_name }}</em></div>
-        {% endfor %}
+    <div class="menu">
+        <div class="row">
+            <strong>MENU</strong>
+            <img class="spinner-small" src="{{ STATIC_URL }}img/ajax-loader-small.gif"/>
+        </div>
+        <div class="row featured-row">
+            <div class="sub-row">
+                <span class="icon icon-star"></span>
+                <strong>FEATURED</strong>
+            </div>
+            <div class="sub-row featured-channel"></div>
+        </div>
+        <div class="row">
+            <strong>TWITCH</strong>
+        </div>
+        <div class="twitch-channels">
+            {% for channel in CHANNELS %}
+                {% if channel.provider == 'twitch' %}
+                    <div class="row">{{ channel.name }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row">
+            <strong>HITBOX</strong>
+        </div>
+        <div class="hitbox-channels">
+            {% for channel in CHANNELS %}
+                {% if channel.provider == 'hitbox' %}
+                    <div class="row">{{ channel.name }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
+    <span class="icon icon-refresh"></span>
 </body>
 </html>

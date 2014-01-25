@@ -1,3 +1,8 @@
+@font-face {
+    font-family: DaysLater;
+    src: url('../fonts/28dayslater.ttf');
+}
+
 body {
     background-color: #202020;
     background-image: url('../img/bg.jpg');
@@ -6,6 +11,7 @@ body {
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 12px;
     text-shadow: 1px 1px black;
+    margin-left: 158px;  /* space for menu */
 }
 
 h1 {
@@ -13,7 +19,6 @@ h1 {
 }
 
 strong {
-    color: red;
     text-shadow: 0px 0px 15px white;
 }
 
@@ -26,6 +31,17 @@ a {
 a:hover {
     text-shadow: 0px 0px 15px red;
 }
+
+.dayslater {
+    font-family: DaysLater, Tahoma, Geneva, sans-serif;
+    font-size: 5em;
+}
+
+.header {
+    position: relative;
+    text-align: center;
+}
+
 
 .banner {
     display: inline-block;
@@ -60,6 +76,11 @@ a:hover {
     background-color: rgba(0, 0, 0, 0.6);
 }
 
+.sponsor .hitbox-logo {
+    height: 40px;
+    width: auto;
+}
+
 .bg {
     background-color: rgba(0, 0, 0, 0.6);
 }
@@ -92,9 +113,13 @@ a:hover {
     font-weight: bold;
 }
 
+.viewers {
+    color: white;
+    font-style: normal;
+}
+
 .video-embed {
-    height: 378px;
-    width: 620px;
+    display: inline-block;
     float: left;
     padding: 4px;
     margin: 4px;
@@ -116,26 +141,83 @@ a:hover {
     float: left;
 }
 
-.channels {
+.menu {
     position: fixed;
-    border-top-right-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-top-right-radius: 5px;
-    -o-border-top-right-radius: 5px;
-    -ms-border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    -moz-border-bottom-right-radius: 5px;
-    -o-border-bottom-right-radius: 5px;
-    -ms-border-bottom-right-radius: 5px;
-    top: 45px;
+    min-width: 110px;
+    width: auto;
+    height: 100%;
+    top: 0px;
     left: 0px;
-    background-color: rgba(0, 0, 0, 0.1);
-    color: #777777;
-    padding: 5px;
+    text-align: center;
+    background-color: #202020;
+    border-right: 1px solid #111111;
+}
+
+.menu strong {
+    font-size: 1.5em;
+    color: white;
+    text-shadow: none;
+
+}
+
+.menu .row {
+    position: relative;
+    padding: 0.2em 0.8em;
+    border-bottom: 1px solid #333333;
+    color: #666666;
+    max-width: 140px;
+    overflow: hidden;
+}
+
+.menu .row .spinner-small {
+    position: absolute;
+    top: 25%;
+    right: 5px;
+}
+
+.menu .row.selected {
     font-weight: bold;
-    line-height: 1.4;
-    font-size: 0.8em;
+    background-color: #555555;
+}
+
+.menu .row.featured-row {
+    display: none;
+}
+
+
+.menu .row.live,
+.menu .row.featured-row {
+    color: white;
+    cursor: pointer;
+    transition: background-color 200ms;
+    -webkit-transition: background-color 200ms;
+}
+.menu .row.live:hover,
+.menu .featured-row:hover {
+    background-color: #666666;
+}
+.menu .row.live:active,
+.menu .featured-row:active {
+    background-color: white;
+}
+
+.menu .row .sub-row {
+    padding: 0.15em 0.8em;
+}
+
+.menu .row .sub-row.featured-channel {
+    color: white;
+    font-size: 1.2em;
+    text-shadow: 0px 0px 6px yellowgreen;
+    font-weight: normal;
+}
+
+.menu .row .sub-row.channel-title {
+    font-style: italic;
+    color: #999999;
+    font-size: 0.95em;
+    max-width: 140px;
+    overflow: auto;
 }
 
 .spinner {
@@ -164,4 +246,52 @@ a:hover {
 .spinner img {
     margin: 5px;
     max-height: 20px;
+}
+
+.icon {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.icon-live {
+    background-image: url('../img/live.svg');
+    height: 1.3em;
+    width: 1.3em;
+    position: relative;
+    top: 0.1em;
+}
+
+.icon-eye {
+    background-image: url('../img/eye.svg');
+    height: 1.7em;
+    width: 1.7em;
+    position: relative;
+    top: 0.4em;
+}
+
+.icon-refresh {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    background-image: url('../img/refresh.svg');
+    transition: transform 100ms;
+    -webkit-transition: -webkit-transform 100ms;
+    cursor: pointer;
+    display: block;
+}
+.icon-refresh:hover {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+}
+
+.icon-star {
+    background-image: url('../img/star.svg');
+    height: 1.7em;
+    width: 1.7em;
+    position: relative;
+    top: 0.25em;
 }

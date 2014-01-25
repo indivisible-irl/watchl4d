@@ -7,3 +7,4 @@ libapache2-mod-wsgi
 postgresql
 python-psycopg2
 memcached
+redis-server

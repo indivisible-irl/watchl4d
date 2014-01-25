@@ -13,35 +13,17 @@ from watchl4d.website.forms import *
 from watchl4d.json import JsonResponse
 from watchl4d.decorators import safety, require_authentication
 from watchl4d.website.models import *
-
-CHANNEL_NAMES = [
-'l4dstreamlined',
-'zkagaming',
-'ball3hi',
-'prodigysim',
-'selinalol',
-'sidewaysbox',
-'icy_inferno',
-'sirplease',
-'sirpleasesd',
-'dawkins154',
-'kissmeplox',
-'croxlox',
-'alexi21',
-'canadaroxgh',
-'n1njaaa',
-'haxormode',
-'dectheone',
-'flybyop',
-'kingkillatoy',
-'jacob404',
-'xsilverxi',
-'luunsky',
-'ikaikaikamusume']
+from watchl4d.website.lib import get_streams
 
 @require_GET
 def watchl4d(request):
     return render(request, 'watchl4d.html')
+
+@require_GET
+def live(request):
+    return HttpResponse(
+        content=json.dumps(get_streams()),
+        content_type='application/json')
 
 @require_GET
 def cup(request):
@@ -193,71 +175,3 @@ def deleteteam(request):
         message='Your team was successfully deleted.',
         data=json.dumps(User.objects.get(id=session.user_id).serialize_related()) if session.is_authenticated else None)
 
-
-@require_GET
-def live(request):
-    old_live_channel = cache.get('live')
-
-    if old_live_channel:
-        # Check that what was previously seen as "live", is still live
-        old_live_channel = query_l4d_channel(old_live_channel['channel_name'])
-    
-    if old_live_channel:
-        new_live_channel = old_live_channel
-    else:
-        for channel_name in CHANNEL_NAMES:
-            new_live_channel = query_l4d_channel(channel_name)
-            if new_live_channel:
-                cache.set('live', new_live_channel)
-                break
-
-    # if settings.DEBUG and not new_live_channel:
-    #     new_live_channel = EXAMPLE_LIVE_CHANNEL
-
-    return HttpResponse(
-        content=json.dumps(new_live_channel),
-        content_type='application/json')
-
-def query_l4d_channel(channel_name):
-    '''
-    :param channel_name: Name/ID of a Twitch.tv channel
-    :type channel_name: str
-
-    :returns: If channel is live and broadcasting Left 4 Dead, 
-        data for channel. Otherwise None.
-    :rtype: dict or None
-
-    '''
-    try:
-        response = requests.get('https://api.twitch.tv/kraken/streams/{0}'.format(channel_name))
-        stream = response.json().get('stream', {})
-
-        if 'left 4 dead' not in stream.get('game', '').lower():
-            return None
-
-        channel = stream['channel']
-
-        return {
-            'channel_name': channel_name,
-            'title': channel['status'],
-            'provided_by': channel['display_name'],
-            'video_embed': VIDEO_EMBED.format(channel_name),
-            'chat_embed': CHAT_EMBED.format(channel_name)
-        }
-
-    except:
-        return None
-
-# format with single argument: channel name
-# chat height was originally 500
-VIDEO_EMBED = '<object type="application/x-shockwave-flash" height="378" width="620" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel={0}" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel={0}&auto_play=true&start_volume=25" /></object>'
-CHAT_EMBED = '<iframe frameborder="0" scrolling="no" id="chat_embed" src="http://twitch.tv/chat/embed?channel={0}&amp;popout_chat=true" height="378" width="350"></iframe>'
-
-
-EXAMPLE_LIVE_CHANNEL = {
-    'channel_name': 'ball3hi',
-    'title': 'Vertical Rise vs. Cynister // CCT2',
-    'provided_by': 'Xbye',
-    'video_embed': VIDEO_EMBED.format('ball3hi'),
-    'chat_embed': CHAT_EMBED.format('ball3hi')
-}

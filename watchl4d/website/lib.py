@@ -1,9 +1,12 @@
 import requests
 from django.core.cache import cache
 
+#Square721 Cn BT
 
+usandy
 # These are listed in priority
 CHANNELS = [
+{'name': 'usandy', 'provider': 'twitch'},
 {'name': 'wrugb', 'provider': 'twitch'},
 {'name': 'pwgtv', 'provider': 'twitch'},
 {'name': 'l4dstreamlined', 'provider': 'twitch'},

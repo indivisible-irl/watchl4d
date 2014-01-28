@@ -3,7 +3,6 @@ from django.core.cache import cache
 
 #Square721 Cn BT
 
-usandy
 # These are listed in priority
 CHANNELS = [
 {'name': 'usandy', 'provider': 'twitch'},

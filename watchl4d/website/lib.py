@@ -32,6 +32,7 @@ CHANNELS = [
 {'name': 'xsilverxi', 'provider': 'twitch'},
 {'name': 'luunsky', 'provider': 'twitch'},
 {'name': 'ikaikaikamusume', 'provider': 'twitch'},
+{'name': 'crox', 'provider': 'hitbox'},
 {'name': 'left4dead', 'provider': 'hitbox'},
 {'name': '3bx', 'provider': 'hitbox'},
 {'name': 'fanatictv', 'provider': 'hitbox'}]

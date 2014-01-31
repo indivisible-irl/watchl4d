@@ -17,5 +17,7 @@ def signups_open(request):
     return {'signups_open': so()}
 
 def channels(request):
+    # for c in CHANNELS:
+    #     c['name'] = c['name'].upper()
     return {'CHANNELS': sorted(CHANNELS, key=lambda x: x['name'])}
 

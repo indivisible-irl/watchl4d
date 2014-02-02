@@ -36,10 +36,13 @@
     {% csrf_token %}
     <div class="left-panel">
         <h1>The Watch L4D 2014 Spring Promod Tournament</h1>
-        <a id="home" class="nav-btn rot" href="#home">Home</a>
-        <a id="teams" class="nav-btn rot" href="#teams">Teams</a>
-        <a id="rules" class="nav-btn rot" href="#rules">Rules</a>
-        <a id="resources" class="nav-btn rot" href="#resources">Resources</a>
+        <a id="home" class="nav-btn impact" href="#home">Home</a>
+        <a id="teams" class="nav-btn impact" href="#teams">Teams</a>
+        <a id="rules" class="nav-btn impact" href="#rules">Rules</a>
+        <a id="resources" class="nav-btn impact" href="#resources">Resources</a>
+        {% for round in rounds %}
+            <a id="round{{ round.number }}" class="nav-btn impact" href="#round/{{ round.number }}">Round {{ round.number }}</a>
+        {% endfor %}
 
         {% if signups_open %}
             <em class="disclaimer">Links to round pages will appear once the tournament starts and as rounds progress</em>
@@ -86,6 +89,11 @@
 
         <div id="rules-panel" class="slide"></div>
         <div id="resources-panel" class="slide"></div>
+
+        {% for round in rounds %}
+            <div id="round{{ round.number }}-panel" class="slide" data-number="{{ round.number }}"></div>
+        {% endfor %}
+
     </div>
     <a class="stream-panel" href="http://www.watchl4d.com" target="_blank">
         Go To the <strong>Watch L4D</strong> Stream!

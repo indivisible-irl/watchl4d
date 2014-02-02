@@ -1,0 +1,105 @@
+<div>
+<h1 class="impact">Round <%= model.get('number') %></h1>
+
+<h2><%= model.get('map').name %></h2>
+
+<h3>Standings as of Round <%= model.get('number') %></h3>
+<table style="width: 100%;">
+    <tr class="pairing">
+        <td><strong>Team</strong></td>
+        <td><strong>Score</strong></td>
+        <td><strong>Resist</strong></td>
+        <td><strong>Rank</strong></td>
+    </tr>
+    <% for (i in model.get('standings')) { %>
+        <% var standing = model.get('standings')[i] %>
+        <tr>
+            <td><%= standing.name %></td>
+            <td><%= standing.score %></td>
+            <td><%= standing.resist %></td>
+            <td><%= standing.place %></td>
+        </tr>
+    <% } %>
+</table>
+<br />
+
+<h3>Pairings for Round <%= model.get('number') %></h3>
+<table style="width: 100%;">
+    <tr>
+        <td>
+            <div class="pairing">
+            <div class="pairing-name"><strong>Home Team</strong></div>
+            <div class="pairing-score"><strong>Score</strong></div>
+            <div class="pairing-resist"><strong>Resist</strong></div>
+            </div>
+            <% for (i in model.get('pairings')) { %>
+                <% var pairing = model.get('pairings')[i] %>
+                <div class="pairing">
+                <div class="pairing-name"><%= pairing.team1.name %></div>
+                <div class="pairing-score"><%= pairing.score1 %></div>
+                <div class="pairing-resist"><%= pairing.resist1 %></div>
+                </div>
+            <% } %>
+        </td>
+        <td>
+            <div class="vs">VS</div>
+        </td>
+        <td>
+            <div class="pairing">
+            <div class="pairing-name"><strong>Challenger</strong></div>
+            <div class="pairing-score"><strong>Score</strong></div>
+            <div class="pairing-resist"><strong>Resist</strong></div>
+            </div>
+            <% for (i in model.get('pairings')) { %>
+                <% var pairing = model.get('pairings')[i] %>
+                <div class="pairing">
+                <div class="pairing-name"><%= pairing.team2.name %></div>
+                <div class="pairing-score"><%= pairing.score2 %></div>
+                <div class="pairing-resist"><%= pairing.resist2 %></div>
+                </div>
+            <% } %>
+        </td>
+    </tr>
+</table>
+
+<form class="post">
+    <input type="hidden" id="round_number" name="round_number" value="<%= model.get('number') %>" />
+    <div class="hint">Post comments and match schedules/results:</div>
+    <textarea id="text" name="text"></textarea>
+    <div class="hint">Upload any necessary screenshots or demos:</div>
+    <input id="file" name="file" type="file" />
+    <br />
+    <div class="progress">
+        <div class="bar"></div>
+        <div class="label">Please wait past 100% until your page refreshes!</div>
+    </div>
+    <img class="spinner" src="{{STATIC_URL}}img/ajax-loader-small.gif" />
+    <br />
+    <input type="submit" value="Submit" />
+    <div class="error"></div>
+</form>
+
+<h3>Posts</h3>
+<% for (i in model.get('posts')) { %>
+    <% var post = model.get('posts')[i] %>
+    <div class="past-post">
+        <span class="past-post-user"><%= post.user.name %> - <%= post.create_date %></span>
+        <hr />
+        <div class="past-post-text"><%= post.text %></div>
+        <% if (post.file != null) { %>
+            <% if (post.is_image) { %>
+                <a href="{{ MEDIA_URL}}<%= post.file %>" target="_blank">
+                    <img src="{{ MEDIA_URL}}<%= post.file %>" alt="<%= post.file_name %>"/>
+                </a>
+            <% } else { %>
+                <div class="past-post-file">
+                    <a href="{{ MEDIA_URL}}<%= post.file %>" target="_blank">
+                        <%= post.file_name %>
+                    </a>
+                </div>
+            <% } %>
+        <% } %>
+    </div>
+<% } %>
+
+</div>

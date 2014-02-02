@@ -8,7 +8,8 @@ def conf(request):
             'BACKBONE_TEMPLATE_URL': settings.BACKBONE_TEMPLATE_URL,
             'ROOT_URL': settings.ROOT_URL,
             'STATIC_URL': settings.STATIC_URL,
-            'STATIC_VERSION': '?v=' + settings.STATIC_VERSION}
+            'STATIC_VERSION': '?v=' + settings.STATIC_VERSION,
+            'MEDIA_URL': settings.MEDIA_URL}
 
 def session(request):
     return {'session': Session(request)}

@@ -1,5 +1,6 @@
 import json
 import requests
+import logging
 
 from django.conf import settings
 from django.core.cache import cache
@@ -14,6 +15,7 @@ from watchl4d.json import JsonResponse
 from watchl4d.decorators import safety, require_authentication
 from watchl4d.website.models import *
 from watchl4d.website.lib import get_streams
+from watchl4d.io import UploadedFileInfo
 
 @require_GET
 def watchl4d(request):
@@ -44,7 +46,8 @@ def cup(request):
     return render(request, 'main.html', 
         {'user': user, 
         'teams': teams, 
-        'paired_teams': paired_teams})
+        'paired_teams': paired_teams,
+        'rounds': Round.objects.all()})
 
 @require_POST
 @safety(JsonResponse)
@@ -147,9 +150,6 @@ def team(request):
     user.team = team
     user.save()
     
-    # Update Session
-    # session.player_name = post.name0
-  
     return JsonResponse(
         success=True, 
         message="Your team has been saved!", 
@@ -174,4 +174,32 @@ def deleteteam(request):
         success=True, 
         message='Your team was successfully deleted.',
         data=json.dumps(User.objects.get(id=session.user_id).serialize_related()) if session.is_authenticated else None)
+
+@require_GET
+@safety(JsonResponse)
+def round(request, number):
+    return JsonResponse(success=True, data=Round.objects.get(number=number).serialize_related())
+
+@require_POST
+@safety(JsonResponse)
+@require_authentication
+def post(request):
+    session = Session(request)
+    data = RequestObject(request)
+    
+    post = Post(text=data.text,
+                user=session.user,
+                round=Round.objects.get(number=data.round_number))
+    
+    if data.file:
+        info = UploadedFileInfo(data.file)
+        
+        info.save_s3()
+        post.file_name = info.filename.split('\\')[-1]
+        post.file = info.relative_upload_file
+    
+    post.save()
+    return JsonResponse(success=True, message='Successfully Posted!')
+
+
 

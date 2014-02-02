@@ -54,10 +54,10 @@
                         <td><input type="text" name="steam_id<%= i %>" id="steam_id<%= i %>" value="<%= model.get('steam_id') %>"/></td>
                         <td><input type="text" class="steam-profile" name="steam_profile<%= i %>" id="steam_profile<%= i %>" value="<%= model.get('steam_profile') %>"/></td>
                     <% } else if (model.get('team') && model.get('team').members && model.get('team').members.length > (i - 1)) { %>
-                        <td><input type="hidden" name="id<%= i %>" id="id<%= i %>" value="<%= model.get('team').members[i].id %>"/></td>
-                        <td><input type="text" name="name<%= i %>" id="name<%= i %>"  value="<%= model.get('team').members[i].name %>"/></td>
-                        <td><input type="text" name="steam_id<%= i %>" id="steam_id<%= i %>" value="<%= model.get('team').members[i].steam_id %>"/></td>
-                        <td><input type="text" class="steam-profile" name="steam_profile<%= i %>" id="steam_profile<%= i %>" value="<%= model.get('team').members[i].steam_profile %>"/></td>
+                        <td><input type="hidden" name="id<%= i %>" id="id<%= i %>" value="<%= model.get('team').members[i-1].id %>"/></td>
+                        <td><input type="text" name="name<%= i %>" id="name<%= i %>"  value="<%= model.get('team').members[i-1].name %>"/></td>
+                        <td><input type="text" name="steam_id<%= i %>" id="steam_id<%= i %>" value="<%= model.get('team').members[i-1].steam_id %>"/></td>
+                        <td><input type="text" class="steam-profile" name="steam_profile<%= i %>" id="steam_profile<%= i %>" value="<%= model.get('team').members[i-1].steam_profile %>"/></td>
                     <% } else { %>
                         <td><input type="hidden" name="id<%= i %>" id="id<%= i %>" value=""/></td>
                         <td><input type="text" name="name<%= i %>" id="name<%= i %>"  value=""/></td>

@@ -5,6 +5,7 @@ from django.core.cache import cache
 
 # These are listed in priority
 CHANNELS = [
+{'name': 'yesmrpresident', 'provider': 'twitch'},
 {'name': 'estoopi', 'provider': 'twitch'},
 {'name': 'babycakez_', 'provider': 'twitch'},
 {'name': 'dexterity_', 'provider': 'twitch'},

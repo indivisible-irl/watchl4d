@@ -19,6 +19,6 @@ Site.Routers.Main = Backbone.Router.extend({
         Site.Main.slider.slide(3);
     },
     round: function (number) {
-        Site.Main.slider.slide(number + 3);
+        Site.Main.slider.slide(Number(number) + 3, Site.Main.onRoundSlide);
     }
 });

@@ -35,6 +35,12 @@ else:
     ROOT_URL = ''
     STATIC_URL = 'http://watchl4d.s3-website-us-east-1.amazonaws.com/'
 
+MEDIA_URL = 'http://watchl4d.s3-website-us-east-1.amazonaws.com/media/'
+MEDIA_AWS_ID = 'AKIAIEC6OR7MFH3RA3HQ'
+MEDIA_AWS_SECRET = '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'
+MEDIA_S3_BUCKET = 'watchl4d'
+MEDIA_S3_PATH = 'media'
+
 STATIC_VERSION = os.environ.get(
     'WATCHL4D_STATIC_VERSION', 
     hashlib.md5(str(datetime.datetime.now())).hexdigest())

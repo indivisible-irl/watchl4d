@@ -11,7 +11,7 @@ urlpatterns = patterns('watchl4d.website.views',
     url(r'^team/$', 'team'),
     url(r'^live/$', 'live'),
     url(r'^cup/$', 'cup'),
-    url(r'^round/(?P<number>\d+)/?$', 'round'),
+    url(r'^cup/round/(?P<number>\d+)/?$', 'round'),
     url(r'^post/$', 'post'),
 
     url(r'^admin/', include(admin.site.urls))

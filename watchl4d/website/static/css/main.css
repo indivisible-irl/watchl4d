@@ -80,11 +80,12 @@ em.disclaimer {
     -o-border-radius: 4px;
     -ms-border-radius: 4px;
     margin: 2px 0px;
+
+    font-size: 0.9em;
 }
 
 .pairing strong {
     color: red;
-    font-size: 0.8em;
 }
 
 .pairing-name,
@@ -153,13 +154,17 @@ em.disclaimer {
     color: orange;
 }
 
-table.orange {
+/*table.orange {
+    font-size: 0.9em;
+}*/
+
+table {
     font-size: 0.9em;
 }
 
-table.orange tr {
+/*table.orange tr {
     
-}
+}*/
 
 table.orange td {
     border-right: 1px solid gray;

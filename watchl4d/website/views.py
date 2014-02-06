@@ -14,7 +14,7 @@ from watchl4d.website.forms import *
 from watchl4d.json import JsonResponse
 from watchl4d.decorators import safety, require_authentication
 from watchl4d.website.models import *
-from watchl4d.website.lib import get_streams
+from watchl4d.website.lib import get_streams, QueuedStreamQuery
 from watchl4d.io import UploadedFileInfo
 
 @require_GET
@@ -24,7 +24,7 @@ def watchl4d(request):
 @require_GET
 def live(request):
     return HttpResponse(
-        content=json.dumps(get_streams()),
+        content=json.dumps(QueuedStreamQuery().run()),
         content_type='application/json')
 
 @require_GET

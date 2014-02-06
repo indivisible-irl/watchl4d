@@ -1,4 +1,5 @@
 import requests
+import datetime
 from django.core.cache import cache
 
 #Square721 Cn BT
@@ -33,19 +34,81 @@ CHANNELS = [
 {'name': 'saywordz', 'provider': 'twitch'},
 {'name': 'jacob404', 'provider': 'twitch'},
 {'name': 'xsilverxi', 'provider': 'twitch'},
-{'name': 'luunsky', 'provider': 'twitch'},
 {'name': 'ikaikaikamusume', 'provider': 'twitch'},
 {'name': 'crox', 'provider': 'hitbox'},
 {'name': 'left4dead', 'provider': 'hitbox'},
 {'name': '3bx', 'provider': 'hitbox'},
 {'name': 'fanatictv', 'provider': 'hitbox'}]
 
+class QueuedStreamQuery(object):
+    def __init__(self):
+        self._data = None
+        self.cache_key = 'streams'
+        self.in_process_cache_key = '{0}:inprocess'.format(self.cache_key)
+        self.expiration_cache_key = '{0}:expiration'.format(self.cache_key)
+
+    def run(self):
+        if not self.has_data:
+            if not self.in_process:
+                return self.process()
+            return self.run_query()
+        
+        if self.has_expired_data:
+            if not self.in_process:
+                return self.process()
+
+        return self.data
+
+    @property
+    def data(self):
+        if not self._data:
+            self._data = cache.get(self.cache_key)
+        return self._data
+
+    @property
+    def has_data(self):
+        return self.data is not None
+
+    @property
+    def in_process(self):
+        return cache.get(self.in_process_cache_key)
+
+    def run_query(self):
+        streams = [query_l4d_channel(channel) for channel in CHANNELS]
+        streams.sort(key=lambda x: x['channel_name'])
+        return streams
+
+    @property
+    def has_expired_data(self):
+        expiration = cache.get(self.expiration_cache_key)
+        return expiration and expiration < datetime.datetime.now()
+
+    def process(self):
+        # First, set flag telling other processes not to process anything.
+        # This is set to expire after 1 minute in case the process hangs for any reason
+        # things will reset after 1 minute.
+        cache.set(self.in_process_cache_key, True, 60)
+
+        # We store stream for a minute but our refresh rate will be much faster
+        data = self.run_query()
+        cache.set(self.cache_key, data, 60)
+
+        # Cache the expiration of this new data
+        # This tells when we ACTUALLY refresh the data (every 15 seconds)
+        expiration = datetime.datetime.now() + datetime.timedelta(seconds=15)
+        cache.set(self.expiration_cache_key, expiration, 120)
+
+        # Delete data telling other processes that the query is in process
+        cache.delete(self.in_process_cache_key)
+
+        return data
+
 def get_streams():
     streams = cache.get('streams')
     if not streams:
         streams = [query_l4d_channel(channel) for channel in CHANNELS]
         streams.sort(key=lambda x: x['channel_name'])
-        cache.set('streams', streams, 30)
+        cache.set('streams', streams, 60)
     return streams
 
 def query_l4d_channel(channel):
@@ -85,8 +148,6 @@ def query_l4d_twitch_channel(channel_name):
         stream = response.json().get('stream', {})
 
         assert 'left 4 dead' in stream.get('game', '').lower()
-        # if 'left 4 dead' not in stream.get('game', '').lower():
-        #     return None
 
         channel = stream['channel']
 
@@ -94,17 +155,6 @@ def query_l4d_twitch_channel(channel_name):
         title = channel['status']
         provided_by = channel['display_name']
         viewers = stream['viewers']
-
-        # return {
-        #     'live': live,
-        #     'channel_name': channel_name,
-        #     'channel_provider': 'twitch.tv',
-        #     'title': channel['status'],
-        #     'provided_by': channel['display_name'],
-        #     'viewers': stream['viewers'],
-        #     'video_embed': TWITCH_VIDEO_EMBED.format(channel_name),
-        #     'chat_embed': TWITCH_CHAT_EMBED.format(channel_name)
-        # }
 
     except:
         live = False
@@ -154,34 +204,16 @@ def query_l4d_hitbox_channel(channel_name):
     '''
     try:
         response = requests.get('http://api.hitbox.tv/media/live/{0}'.format(channel_name))
-        # print 'got response'
+
         channel = response.json().get('livestream', [{}])[0]
-        # print 'git channel', channel
-        # print 'channel is live', int(channel.get('media_is_live', '0'))
-        # print 'category', channel.get('category_name', '').lower()
-
+        
         assert int(channel.get('media_is_live', '0'))
-        # if not int(channel.get('media_is_live', '0')):
-        #     return None
         assert 'left 4 dead' in channel.get('category_name', '').lower()
-
-        # if 'left 4 dead' not in channel.get('category_name', '').lower():
-        #     return None
 
         live = True
         title = channel['media_status']
         provided_by = channel['media_display_name']
         viewers = channel['media_views']
-
-        # return {
-        #     'channel_name': channel_name,
-        #     'channel_provider': 'hitbox.tv',
-        #     'title': channel['media_status'],
-        #     'provided_by': channel['media_display_name'],
-        #     'viewers': channel['media_views'],
-        #     'video_embed': HITBOX_VIDEO_EMBED.format(channel_name),
-        #     'chat_embed': HITBOX_CHAT_EMBED.format(channel_name)
-        # }
 
     except:
         live = False

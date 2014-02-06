@@ -151,6 +151,7 @@ a:hover {
     text-align: center;
     background-color: #202020;
     border-right: 1px solid #111111;
+    overflow-y: scroll;
 }
 
 .menu strong {

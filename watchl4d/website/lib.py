@@ -1,5 +1,6 @@
 import requests
 import datetime
+import copy
 from django.core.cache import cache
 
 #Square721 Cn BT
@@ -51,7 +52,7 @@ class QueuedStreamQuery(object):
         if not self.has_data:
             if not self.in_process:
                 return self.process()
-            return self.run_query()
+            return self.run_cheap_query()
         
         if self.has_expired_data:
             if not self.in_process:
@@ -73,9 +74,16 @@ class QueuedStreamQuery(object):
     def in_process(self):
         return cache.get(self.in_process_cache_key)
 
-    def run_query(self):
+    def run_expensive_query(self):
         streams = [query_l4d_channel(channel) for channel in CHANNELS]
         streams.sort(key=lambda x: x['channel_name'])
+        return streams
+
+    def run_cheap_query(self):
+        streams = []
+        for channel in CHANNELS:
+            streams.append(copy.copy(EMPTY_CHANNEL))
+            streams[-1]['channel_name'] = channel['name']
         return streams
 
     @property
@@ -90,7 +98,7 @@ class QueuedStreamQuery(object):
         cache.set(self.in_process_cache_key, True, 60)
 
         # We store stream for a minute but our refresh rate will be much faster
-        data = self.run_query()
+        data = self.run_expensive_query()
         cache.set(self.cache_key, data, 60)
 
         # Cache the expiration of this new data

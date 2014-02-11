@@ -47,6 +47,14 @@ CHANNELS = [
 class QueuedStreamQuery(object):
     def __init__(self):
         self._data = None
+        
+        # seconds; how often we want the data to be re-queried
+        self._expiration = 20   
+
+        # seconds; how long the backend cache should keep the data
+        # (forever (None) is probably ideal since any refresh in the middle of a game will be annoying to viewers)
+        self._lifetime = None
+
         self.cache_key = 'streams'
         self.in_process_cache_key = '{0}:inprocess'.format(self.cache_key)
         self.expiration_cache_key = '{0}:expiration'.format(self.cache_key)
@@ -96,18 +104,19 @@ class QueuedStreamQuery(object):
 
     def process(self):
         # First, set flag telling other processes not to process anything.
-        # This is set to expire after 1 minute in case the process hangs for any reason
-        # things will reset after 1 minute.
-        cache.set(self.in_process_cache_key, True, 60)
+        # This is set to expire 3 times the length of the refresh rate.
+        # Really we just want to make sure this is longer than what it takes
+        # to run the expensive query.
+        cache.set(self.in_process_cache_key, True, self._expiration * 3)
 
-        # We store stream for a minute but our refresh rate will be much faster
+        # Query the data and store it for a lonnngg time
         data = self.run_expensive_query()
-        cache.set(self.cache_key, data, 60)
+        cache.set(self.cache_key, data, self._lifetime)
 
         # Cache the expiration of this new data
-        # This tells when we ACTUALLY refresh the data (every 15 seconds)
-        expiration = datetime.datetime.now() + datetime.timedelta(seconds=15)
-        cache.set(self.expiration_cache_key, expiration, 120)
+        # This tells when we ACTUALLY refresh the data
+        expiration = datetime.datetime.now() + datetime.timedelta(seconds=self._expiration)
+        cache.set(self.expiration_cache_key, expiration, self._lifetime)
 
         # Delete data telling other processes that the query is in process
         cache.delete(self.in_process_cache_key)

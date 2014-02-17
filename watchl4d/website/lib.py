@@ -7,6 +7,7 @@ from django.core.cache import cache
 
 # These are listed in priority
 CHANNELS = [
+{'name': 'center311', 'provider': 'twitch'},
 {'name': 'spartanargentino2008', 'provider': 'twitch'},
 {'name': 'djmaulergaming', 'provider': 'twitch'},
 {'name': 'joeguertin', 'provider': 'twitch'},
@@ -202,15 +203,15 @@ def query_l4d_twitch_channel(channel_name):
 # format with single argument: channel name
 # video width/height ratio = 1.64
 # chat height was originally 500
-TWITCH_VIDEO_EMBED = '<object type="application/x-shockwave-flash" height="378" width="620" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel={0}" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel={0}&auto_play=true&start_volume=25" /></object>'
-TWITCH_CHAT_EMBED = '<iframe frameborder="0" scrolling="no" id="chat_embed" src="http://twitch.tv/chat/embed?channel={0}&amp;popout_chat=true" height="378" width="350"></iframe>'
+TWITCH_VIDEO_EMBED = '<object type="application/x-shockwave-flash" height="100%" width="100%" id="live_embed_player_flash" data="http://www.twitch.tv/widgets/live_embed_player.swf?channel={0}" bgcolor="#000000"><param name="allowFullScreen" value="true" /><param name="allowScriptAccess" value="always" /><param name="allowNetworking" value="all" /><param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" /><param name="flashvars" value="hostname=www.twitch.tv&channel={0}&auto_play=true&start_volume=25" /></object>'
+TWITCH_CHAT_EMBED = '<iframe frameborder="0" scrolling="no" id="chat_embed" src="http://twitch.tv/chat/embed?channel={0}&amp;popout_chat=true" height="100%" width="100%"></iframe>'
 
 # video width and height was originall 640x360 (1.7)
 # new width = 620 -> new height = 365
 # autoplay was guessed :D
-HITBOX_VIDEO_EMBED = '<iframe width="620" height="365" src="http://hitbox.tv/#!/embed/{0}?autoplay=true" frameborder="0" allowfullscreen></iframe>'
+HITBOX_VIDEO_EMBED = '<iframe width="100%" height="100%" src="http://hitbox.tv/#!/embed/{0}?autoplay=true" frameborder="0" allowfullscreen></iframe>'
 # chat width and height was originally 360x640
-HITBOX_CHAT_EMBED = '<iframe width="350" height="365" src="http://www.hitbox.tv/embedchat/{0}" frameborder="0" allowfullscreen></iframe>'
+HITBOX_CHAT_EMBED = '<iframe width="100%" height="100%" src="http://www.hitbox.tv/embedchat/{0}" frameborder="0" allowfullscreen></iframe>'
 
 def query_l4d_hitbox_channel(channel_name):
     '''

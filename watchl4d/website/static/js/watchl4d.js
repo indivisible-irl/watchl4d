@@ -1,18 +1,60 @@
 
+TWITCH_WH_RATIO = 1.64;
+HITBOX_WH_RATIO = 1.7;
+
+LIVE_CHANNEL = null;
+SELECTED_CHANNEL = null;
+CHANNELS = {};
+
 $(function () {
+    $(window).resize(resizeVideo);
+
+    resizeVideo();
+
     showSpinner();
     // Put a little delay to see if it helps embeded 
     // content from breaking upon load
     setTimeout(pingChannels, 2000);
 
-    $('.icon-refresh').bind('click', function (e) {
-        setLiveChannel(LIVE_CHANNEL, true);
-    });
+
+    // $('.icon-refresh').bind('click', function (e) {
+    //     setLiveChannel(LIVE_CHANNEL, true);
+    // });
 });
 
-LIVE_CHANNEL = null;
-SELECTED_CHANNEL = null;
-CHANNELS = {};
+function resizeVideo () {
+
+    // TODO: Reserve 110px for header
+    // Reserve 70px for
+    var content = $('.content');
+
+    ratio = TWITCH_WH_RATIO;
+    if ((LIVE_CHANNEL != null) && (LIVE_CHANNEL.channel_provider == 'hitbox.tv')) {
+        ratio = HITBOX_WH_RATIO;
+    }
+
+    var videoEmbed = $('.video-embed'),
+        videoWidth = videoEmbed.width(),
+        videoHeight = Math.floor(videoWidth / ratio);
+
+    //if (LIVE_CHANNEL == null) {
+        videoWidth = content.width() - 340;
+        videoHeight = Math.floor(videoWidth / ratio);
+    //}
+
+    if (videoHeight < 335) {
+        videoHeight = 335;
+        videoWidth = videoHeight * ratio;
+    }
+
+    
+
+    // var videoEmbed = $('.video-embed'),
+    //     videoHeight = Math.floor(videoEmbed.width() / ratio);
+    $('.video-embed').css('height', videoHeight + 'px').css('width', videoWidth + 'px');
+
+    $('.chat-embed').css('height', videoHeight + 'px');
+}
 
 function pingChannels () {
     $.ajax({
@@ -142,7 +184,22 @@ function updateChannelStatus () {
         liveChannel = SELECTED_CHANNEL;
     }
 
-    setLiveChannel(liveChannel);
+    var liveChannelIsGone = false;
+    if (LIVE_CHANNEL != null) {
+        for (var i = 0; i < CHANNELS.length; i++) {
+            var channel = CHANNELS[i];
+            if (channel.channel_name == LIVE_CHANNEL.channel_name) {
+                if (!channel.live) {
+                    liveChannelIsGone == true;
+                }
+                break;
+            }
+        }
+    }
+
+    if ((LIVE_CHANNEL == null) || (liveChannelIsGone)) {
+        setLiveChannel(liveChannel);
+    }
 }
 
 /*
@@ -165,6 +222,7 @@ function setLiveChannel (data, force) {
         if (!already_loaded) {
             $('.video-embed').html(data['video_embed']);
             $('.chat-embed').html(data['chat_embed']);
+            resizeVideo();
         }
         $('.viewers').text(data['viewers']);
     }
@@ -185,11 +243,14 @@ function showSpinner () {
         $('.video-embed').empty();
         $('.chat-embed').empty();
         $('.viewers').empty();
+        $('.content').css('margin-right', '0px');
     });
+    $('.chat-embed').animate({opacity: 0}, 300, 'swing');
 }
 
 function hideSpinner () {
     $('.spinner').animate({top: '-25%', opacity: 0}, 300, 'swing');
-    $('.tryagain').animate({top: '-25%', opacity: 0}, 300, 'swing');
     $('.channel').animate({opacity: 100}, 300, 'swing');
+    $('.chat-embed').animate({opacity: 100}, 300, 'swing');
+    // $('.content').css('margin-right', '318px');
 }

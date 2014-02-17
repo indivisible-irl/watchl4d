@@ -15,50 +15,52 @@
     <script src="{{ STATIC_URL }}js/watchl4d.js{{ STATIC_VERSION }}" type="text/javascript"></script>
 </head>
 <body>
-    <div class="header">
-        <div class="dayslater">Watch L4D <span style="color:red;">BETA</span></div>
-    </div>
-    <div class="channel">
-        <div class="banner">
-            <span class="title"></span>
-            <span class="provided-by-pretext">Provided by <span>
-            <span class="provided-by"></span>
-            <span class="channel-name"></span>
-            <span class="icon icon-eye"></span>
-            <span class="viewers"></span>
+    <div class="content">
+        <div class="header" style="max-height: 60px; overflow-y: hidden;">
+            <div class="dayslater">Watch L4D <span style="color:red;">BETA</span></div>
         </div>
-        <div class="banner">
-            <div class="video-embed"></div>
-            <div class="chat-embed"></div>
+        <div class="channel">
+            <div class="banner" style="max-height: 49px; overflow-y:hidden; margin-bottom: 6px;">
+                <span class="title"></span>
+                <span class="provided-by-pretext">Provided by <span>
+                <span class="provided-by"></span>
+                <span class="channel-name"></span>
+                <span class="icon icon-eye"></span>
+                <span class="viewers"></span>
+            </div>
+            <div class="banner">
+                <div class="video-embed"></div>
+                <div class="chat-embed"></div>
+            </div>
         </div>
-    </div>
-    <div class="sponsors">
-        <div class="banner">
-            <a class="sponsor" href="http://www.twitch.tv" target="_blank">
-                <img src="{{ STATIC_URL }}img/twitch.png" />
-            </a>
-            <a class="sponsor" href="http://www.l4dnation.com/forum/" target="_blank">
-                <img src="{{ STATIC_URL }}img/l4dnation.png" />
-            </a>
-            <a class="sponsor"href="http://www.l4dpromod.com" target="_blank">
-                <img src="{{ STATIC_URL }}img/l4dpromod.png" />
-            </a>
-            <a class="sponsor bg" href="http://www.watchl4d.com/cup/" target="_blank">
-                Join the
-                <strong>Watch L4D</strong> 
-                2014 Spring ProMod Tournament!
-            </a>
-            <a class="sponsor" href="http://www.hitbox.tv" target="_blank">
-                <img class="hitbox-logo" src="{{ STATIC_URL }}img/hitbox_logo.png" />
-                <img src="{{ STATIC_URL }}img/hitbox.png" />
-            </a>
+        <div class="sponsors">
+            <div class="banner">
+                <a class="sponsor" href="http://www.twitch.tv" target="_blank">
+                    <img src="{{ STATIC_URL }}img/twitch.png" />
+                </a>
+                <a class="sponsor" href="http://www.l4dnation.com/forum/" target="_blank">
+                    <img src="{{ STATIC_URL }}img/l4dnation.png" />
+                </a>
+                <a class="sponsor"href="http://www.l4dpromod.com" target="_blank">
+                    <img src="{{ STATIC_URL }}img/l4dpromod.png" />
+                </a>
+                <a class="sponsor bg" href="http://www.watchl4d.com/cup/" target="_blank">
+                    Join the
+                    <strong>Watch L4D</strong> 
+                    2014 Spring ProMod Tournament!
+                </a>
+                <a class="sponsor" href="http://www.hitbox.tv" target="_blank">
+                    <img class="hitbox-logo" src="{{ STATIC_URL }}img/hitbox_logo.png" />
+                    <img src="{{ STATIC_URL }}img/hitbox.png" />
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="spinner">
-        <div class="spinner-interior">
-            Discovering Left 4 Dead Games
-            <br />
-            <img src="{{ STATIC_URL }}img/ajax-loader.gif"/>
+        <div class="spinner">
+            <div class="spinner-interior">
+                Discovering Left 4 Dead Games
+                <br />
+                <img src="{{ STATIC_URL }}img/ajax-loader.gif"/>
+            </div>
         </div>
     </div>
     <div class="menu">
@@ -94,6 +96,6 @@
             {% endfor %}
         </div>
     </div>
-    <span class="icon icon-refresh"></span>
+    
 </body>
 </html>

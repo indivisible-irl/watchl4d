@@ -138,29 +138,32 @@ class Round(Model):
         previous_resist = None
         previous_place = None
         inc = 1
+        place = 1
         for i, standing in enumerate(standings):
             if previous_score is None or previous_resist is None or previous_place is None:
-                standing['place'] = 1
+                standing['place'] = place
                 previous_score = standing['score']
                 previous_resist = standing['resist']
-                previous_place = 1
+                previous_place = place
             elif previous_score == standing['score']:
                 # Scores are the same
                 if previous_resist == standing['resist']:
                     # Resist is the same
                     standing['place'] = previous_place
-                    inc += 1
+                    # inc += 1
                 else:
-                    standing['place'] = previous_place + inc
+                    standing['place'] = place
                     previous_resist = standing['resist']
-                    previous_place += inc
+                    previous_place = place
             else:
                 # Scores are different
-                standing['place'] = previous_place + inc
+                standing['place'] = place
                 previous_score = standing['score']
                 previous_resist = standing['resist']
-                previous_place += inc
-                inc = 1
+                previous_place = place
+                # inc = 1
+
+            place += 1
 
         serialized['standings'] = standings
         return serialized

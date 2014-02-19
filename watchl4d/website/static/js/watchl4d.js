@@ -24,36 +24,66 @@ $(function () {
 
 function resizeVideo () {
 
-    // TODO: Reserve 110px for header
-    // Reserve 70px for
-    var content = $('.content');
-
-    ratio = TWITCH_WH_RATIO;
+    var ratio = TWITCH_WH_RATIO;
     if ((LIVE_CHANNEL != null) && (LIVE_CHANNEL.channel_provider == 'hitbox.tv')) {
         ratio = HITBOX_WH_RATIO;
     }
 
-    var videoEmbed = $('.video-embed'),
-        videoWidth = videoEmbed.width(),
-        videoHeight = Math.floor(videoWidth / ratio);
+    var widthDeduct = 320 + 170;
+    var heightDeduct = 105 + 85;
+    var minWidth = 350;
+    var minHeight = 335;
 
-    //if (LIVE_CHANNEL == null) {
-        videoWidth = content.width() - 340;
-        videoHeight = Math.floor(videoWidth / ratio);
-    //}
+    // TODO: Reserve 110px for header
+    // Reserve 70px for
+    var content = $('.content');
 
-    if (videoHeight < 335) {
-        videoHeight = 335;
-        videoWidth = videoHeight * ratio;
+    var maxHeight = $('body').height() - heightDeduct;
+
+    var desiredWidth = $('body').width() - widthDeduct;
+    var desiredHeight = Math.floor(desiredWidth / ratio);
+
+    if (desiredHeight > maxHeight) {
+        desiredHeight = maxHeight;
+        desiredWidth = Math.floor(desiredHeight * ratio);
     }
+
+    if (desiredHeight < minHeight) {
+        desiredHeight = minHeight;
+        desiredWidth = Math.floor(desiredHeight * ratio);
+    } 
+
+    if (desiredWidth < minWidth) {
+        desiredWidth = minWidth;
+        desiredHeight = Math.floor(desiredWidth / ratio);
+    }
+
+    // if (desiredWidth )
 
     
 
     // var videoEmbed = $('.video-embed'),
-    //     videoHeight = Math.floor(videoEmbed.width() / ratio);
-    $('.video-embed').css('height', videoHeight + 'px').css('width', videoWidth + 'px');
+    //     videoWidth = videoEmbed.width(),
+    //     videoHeight = Math.floor(videoWidth / ratio);
 
-    $('.chat-embed').css('height', videoHeight + 'px');
+    // //if (LIVE_CHANNEL == null) {
+    //     videoWidth = content.width() - 340;
+    //     videoHeight = Math.floor(videoWidth / ratio);
+    // //}
+
+    // if (videoHeight < 335) {
+    //     videoHeight = 335;
+    //     videoWidth = videoHeight * ratio;
+    // }
+    $('.video-embed').css('height', desiredHeight + 'px').css('width', desiredWidth + 'px');
+    $('.chat-embed').css('height', desiredHeight + 'px').css('right', 'auto').css('left', 175 + desiredWidth);
+    
+
+    // var videoEmbed = $('.video-embed'),
+    //     videoHeight = Math.floor(videoEmbed.width() / ratio);
+    // $('.video-embed').css('height', videoHeight + 'px').css('width', videoWidth + 'px');
+
+    // $('.chat-embed').css('height', videoHeight + 'px');
 }
 
 function pingChannels () {

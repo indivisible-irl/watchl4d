@@ -72,10 +72,16 @@
                                         {% for member in team.members.all %}
                                             {% if member.steam_profile %}
                                                 <a href="{{ member.full_steam_profile }}" target="_blank">
-                                                    {{ member.name }}
+                                                    {{ member.name }} 
+                                                    {% if member.name == 'Vego' %}
+                                                        <strong>BANNED</strong>
+                                                    {% endif %}
                                                 </a>
                                             {% else %}
                                                 <div class="orange">{{ member.name }}</div>
+                                                {% if member.name == 'Vego' %}
+                                                    <strong>BANNED</strong>
+                                                {% endif %}
                                             {% endif %}
                                         {% endfor %}
                                     </div>

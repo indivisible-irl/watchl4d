@@ -14,6 +14,7 @@ body {
     /*margin-left: 158px;  /* space for menu */
     margin: 0px;
     padding: 0px;
+    height: 100%;
 }
 
 h1 {
@@ -41,11 +42,10 @@ a:hover {
 
 .content {
     position: relative;
-    height: 100%;
     margin-left: 158px;
     /*margin-right: 312px;*/
     /*overflow: hidden;*/
-    min-width: 910px;
+    /*min-width: 910px;*/
 }
 
 .header {
@@ -72,7 +72,6 @@ a:hover {
     left: 0px;
     margin: 10px auto;
     text-align: center;
-    z-index: -1;
     margin-left: 156px;
 }
 
@@ -136,6 +135,9 @@ a:hover {
 .video-embed {
     display: inline-block;
     width: 100%;
+    position: fixed;
+    top: 105px;
+    left: 168px;
     /*height: 200px;*/
     /*min-height: 335px;*/
     
@@ -143,6 +145,7 @@ a:hover {
     min-width: 350px;
     /*padding: 4px;
     margin: 4px;*/
+    min-height: 335px;
     margin-right: 4px;
     float: left;
     border-radius: 5px;
@@ -168,10 +171,10 @@ a:hover {
 
 .chat-embed {
     display: inline-block;
+    position: fixed;
+    right: 4px;
+    top: 105px;
     opacity: 0;
-    float: left;
-    right: 0px;
-    top: 0px;
     height: 400px;
     width: 310px;
     min-height: 335px;
@@ -277,6 +280,7 @@ a:hover {
     width: 100%;
     height: auto;
     text-align: center;
+    margin-left: 79px;
 }
 
 .spinner-interior {

@@ -3,10 +3,9 @@ import datetime
 import copy
 from django.core.cache import cache
 
-#Square721 Cn BT
-
-# These are listed in priority
 CHANNELS = [
+{'name': 'everlasting_', 'provider': 'twitch'},
+{'name': 'justlyra', 'provider': 'twitch'},
 {'name': 'center311', 'provider': 'twitch'},
 {'name': 'spartanargentino2008', 'provider': 'twitch'},
 {'name': 'djmaulergaming', 'provider': 'twitch'},
@@ -22,7 +21,6 @@ CHANNELS = [
 {'name': 'l4dstreamlined', 'provider': 'twitch'},
 {'name': 'zkagaming', 'provider': 'twitch'},
 {'name': 'ball3hi', 'provider': 'twitch'},
-{'name': 'prodigysim', 'provider': 'twitch'},
 {'name': 'selinalol', 'provider': 'twitch'},
 {'name': 'sidewaysbox', 'provider': 'twitch'},
 {'name': 'icy_inferno', 'provider': 'twitch'},

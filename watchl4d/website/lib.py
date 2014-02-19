@@ -4,6 +4,7 @@ import copy
 from django.core.cache import cache
 
 CHANNELS = [
+{'name': 'wtfitzflow', 'provider': 'twitch'},
 {'name': 'everlasting_', 'provider': 'twitch'},
 {'name': 'justlyra', 'provider': 'twitch'},
 {'name': 'center311', 'provider': 'twitch'},
@@ -18,7 +19,6 @@ CHANNELS = [
 {'name': 'usandy', 'provider': 'twitch'},
 {'name': 'wrugb', 'provider': 'twitch'},
 {'name': 'pwgtv', 'provider': 'twitch'},
-{'name': 'l4dstreamlined', 'provider': 'twitch'},
 {'name': 'zkagaming', 'provider': 'twitch'},
 {'name': 'ball3hi', 'provider': 'twitch'},
 {'name': 'selinalol', 'provider': 'twitch'},
@@ -26,7 +26,6 @@ CHANNELS = [
 {'name': 'icy_inferno', 'provider': 'twitch'},
 {'name': 'dawkins154', 'provider': 'twitch'},
 {'name': 'kissmeplox', 'provider': 'twitch'},
-{'name': 'croxlox', 'provider': 'twitch'},
 {'name': 'alexi21', 'provider': 'twitch'},
 {'name': 'canadaroxgh', 'provider': 'twitch'},
 {'name': 'n1njaaa', 'provider': 'twitch'},
